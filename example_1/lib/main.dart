@@ -1,13 +1,12 @@
-import 'dart:collection';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'cart_page.dart';
+import 'model/cart.dart';
 
 void main() {
   runApp(ChangeNotifierProvider(
-    create: (context) => CartModel(),
+    create: (context) => CartModel.instance,
     child: const MyApp(),
   ));
 }
@@ -37,7 +36,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final cart = CartModel();
   final list = [];
   @override
   void initState() {
@@ -51,8 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void onPressed(Item item) {
-    cart.add(item);
-    print(cart.items.toString());
+    CartModel.instance.add(item);
   }
 
   @override
@@ -115,25 +112,5 @@ class _MyHomePageState extends State<MyHomePage> {
           },
         ) // This trailing comma makes auto-formatting nicer for build methods.
         );
-  }
-}
-
-class Item {
-  Item(this.name, this.color);
-  Color color;
-  String name;
-}
-
-class CartModel extends ChangeNotifier {
-  final List<Item> _list = [];
-  get items => UnmodifiableListView(_list);
-  void add(Item item) {
-    _list.add(item);
-    notifyListeners();
-  }
-
-  void removeAll() {
-    _list.clear();
-    notifyListeners();
   }
 }

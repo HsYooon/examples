@@ -1,6 +1,7 @@
-import 'package:example_1/main.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'model/cart.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({Key? key}) : super(key: key);
